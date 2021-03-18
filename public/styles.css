@@ -1,0 +1,79 @@
+.container {
+  /* padding: 200px 0; */
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 40px;
+  font-weight: 200;
+}
+
+form {
+  padding: 20px 0;
+  position: relative;
+}
+
+form input {
+  border: 1px solid rgba(252, 252, 252, 0.4);
+  background-color: rgba(252, 252, 252, 0.2);
+  width: 250px;
+  border-radius: 3px;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 10px 15px;
+  margin: 0 auto 10px auto;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  color: white;
+  font-weight: 300;
+}
+
+form button {
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: 0;
+  padding: 10px 15px;
+  color: #50a3a2;
+  border-radius: 3px;
+  width: 250px;
+  font-size: 18px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100vh;
+  /* height: 400px; */
+}
+
+.card {
+  /* width: 40vh; */
+  /* height: 80%; */
+}
+
+.east-bay-font {
+  color: #485d84;
+}
+
+.east-bay-button {
+  background-color: #485d84;
+}
+
+.bg {
+  src: url("https://i.ytimg.com/vi/Tjqpy56YwRA/maxresdefault.jpg");
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.login {
+  width: 70%;
+}
