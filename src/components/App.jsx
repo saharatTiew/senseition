@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Login from "./Entries/Login";
-import Register from "./Entries/Register";
+import Login from "./pages/entries/Login";
+import Register from "./pages/entries/Register";
+import Member from './pages/members/Member';
 import SideNav from "./SideNav";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -16,13 +17,11 @@ export default function App() {
 
   return (
     <Router basename="senseition">
-      { !isEntryPage && <SideNav /> }
+      { !isEntryPage && <SideNav />}
       <Switch>
-        <Route path="/register" component={Register}>
-        </Route>
-        <Route path="/">
-          <Login />
-        </Route>
+        <Route path="/registers" component={ Register } />
+        <Route path="/member" component={ Member } />
+        <Route path="/" component={ Login } />
       </Switch>
     </Router>
   );

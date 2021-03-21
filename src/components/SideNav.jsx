@@ -15,7 +15,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { NavLink } from "react-router-dom";
 
 const drawerWidth = 240;
-const path = "/faculty"
+const path = "/member"
 const navList = [
   { faculty: "MSME", facultyId: 1 },
   { faculty: "VMS", facultyId: 2 },

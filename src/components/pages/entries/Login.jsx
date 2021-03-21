@@ -32,7 +32,7 @@ function Login() {
                   Login
               </button>
               </form>
-              <Link to="/register">
+              <Link to="/registers">
                 <h5 className="east-bay-font">Register</h5>
               </Link>
             </CardContent>
