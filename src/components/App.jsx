@@ -1,6 +1,7 @@
-import React from "react";
-import Login from "./Login";
-import Register from "./Register";
+import React, { useState } from "react";
+import Login from "./Entries/Login";
+import Register from "./Entries/Register";
+import SideNav from "./SideNav";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   HashRouter as Router,
@@ -9,9 +10,13 @@ import {
   Link
 } from "react-router-dom";
 
+
 export default function App() {
+  const [isEntryPage, SetIsLogin] = useState(false)
+
   return (
     <Router basename="senseition">
+      { !isEntryPage && <SideNav /> }
       <Switch>
         <Route path="/register" component={Register}>
         </Route>
