@@ -13,10 +13,9 @@ form {
   position: relative;
 }
 
-form input {
+form>.login-input {
   border: 1px solid rgba(252, 252, 252, 0.4);
-  background-color: rgba(252, 252, 252, 0.2);
-  width: 250px;
+  /* background-color: rgba(252, 252, 252, 0.2); */
   border-radius: 3px;
   font-family: "Source Sans Pro", sans-serif;
   padding: 10px 15px;
@@ -24,7 +23,22 @@ form input {
   display: block;
   text-align: center;
   font-size: 18px;
-  color: white;
+  /* color: white; */
+  font-weight: 300;
+}
+
+.register-input {
+  border: 1px solid rgba(252, 252, 252, 0.4);
+  /* background-color: rgba(252, 252, 252, 0.2); */
+  border-radius: 3px;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 10px 15px;
+  /* padding-right: 80px; */
+  margin: 0 auto 30px 100px !important;
+  display: block;
+  font-size: 18px;
+  text-align: center !important;
+  /* color: white; */
   font-weight: 300;
 }
 
@@ -38,6 +52,10 @@ form button {
   border-radius: 3px;
   width: 250px;
   font-size: 18px;
+}
+
+.register-form {
+  margin-left: 20px;
 }
 
 .box {
@@ -60,7 +78,7 @@ form button {
 }
 
 .east-bay-button {
-  background-color: #485d84;
+  background-color: #485d84 !important;
 }
 
 .bg {
@@ -74,6 +92,29 @@ form button {
   min-height: 100%;
 }
 
-.login {
+.login-btn {
   width: 70%;
 }
+
+.register-btn {
+  width : 30%
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100vh;
+  /* height: 400px; */
+}
+
+/* .test {
+  display: inline-flex;
+  float: left;
+}
+
+.test2 {
+  margin-right: 0px;
+} */
