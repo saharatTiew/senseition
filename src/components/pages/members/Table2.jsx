@@ -137,6 +137,5 @@ export default function FacultyMemberTable(props) {
                 <Pagination.Last onClick={() => nextPage(totalPage)} />
             </Pagination>
         </div>
-
     )
 }

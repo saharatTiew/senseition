@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,8 +13,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { NavLink } from "react-router-dom";
+import useStyles from '../materialUIStyles/SideNavStyles';
+import Table2 from './pages/members/Table2'
 
-const drawerWidth = 240;
 const path = "/member"
 const navList = [
   { faculty: "MSME", facultyId: 1 },
@@ -23,69 +24,12 @@ const navList = [
   { faculty: "VME", facultyId: 4 },
 ]
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
-}));
-
 function NavItem(props) {
   return (
     <div>
       <NavLink to={{
         pathname: path,
-        state: { id : props.id, facultyName : props.faculty }
+        state: { id: props.id, facultyName: props.faculty }
       }}
         activeClassName="active" className="nav-link text-danger">
         <p className="h5">{props.faculty}</p>
@@ -108,7 +52,8 @@ export default function SideNav() {
   };
 
   return (
-    <div className={classes.root}>
+    // <div className={classes.root}>
+    <Fragment>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -151,10 +96,20 @@ export default function SideNav() {
         <Divider />
         <List>
           {navList.map((navItem) => (
-            <NavItem faculty={navItem.faculty} id={navItem.facultyId} key={navItem.facultyId}/>
+            <NavItem faculty={navItem.faculty} id={navItem.facultyId} key={navItem.facultyId} />
           ))}
         </List>
       </Drawer>
-    </div>
+
+      {/* <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <div className={classes.drawerHeader} />
+        <Table2 />
+      </main> */}
+    {/* </div> */}
+    </Fragment>
   );
 }
