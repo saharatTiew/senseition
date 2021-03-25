@@ -12,11 +12,15 @@ import {
   Link
 } from "react-router-dom";
 
+import Biography from './pages/reviews/Biography'
+import MainReview from './pages/reviews/MainReview'
 import SideNavStyles from '../materialUIStyles/SideNavStyles';
 
 
 export default function App() {
   const [isEntryPage, SetIsLogin] = useState(false)
+  const [open, setOpen] = React.useState(false);
+  const [faculty, setFaculty] = useState({ id: 1, name: "MSME" });
   const classes = SideNavStyles();
   const theme = useTheme();
 
@@ -24,10 +28,15 @@ export default function App() {
 
     <Router basename="senseition">
     <div className={classes.root}>
-      { !isEntryPage && <SideNav />}
+      { !isEntryPage && <SideNav open={open} setOpen={setOpen}/>}
       <Switch>
         <Route path="/registers" component={ Register } />
-        <Route path="/member" component={ Member } />
+        <Route path="/member">
+          <Member open={open} faculty={faculty} setFaculty={setFaculty}/>
+        </Route>
+        <Route path="/mainreview">
+          <MainReview open={open} faculty={faculty} setFaculty={setFaculty}/>
+        </Route>
         <Route path="/" component={ Login } />
       </Switch>
     </div>

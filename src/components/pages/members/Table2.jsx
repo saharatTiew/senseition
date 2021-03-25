@@ -77,7 +77,7 @@ function MemberBody(props) {
             <td>{props.position}</td>
             <td>{props.rate}</td>
             <td>
-                <Link to="/registers">
+                <Link to="/mainreview">
                     <RadioButtonUncheckedOutlinedIcon style={{color: "#000000"}}/>
                 </Link>
             </td>
@@ -87,7 +87,8 @@ function MemberBody(props) {
 
 
 export default function FacultyMemberTable(props) {
-    const [page, setPage] = React.useState(2);
+    const [page, setPage] = useState(1);
+    const [major, setMajor] = useState(0);
     const totalPage = 20;
 
     function nextPage(page) {
