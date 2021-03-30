@@ -114,7 +114,7 @@ export default function FacultyMemberTable(props) {
                     {data.map(i => <MemberBody {...i} key={i.id} />)}
                 </tbody>
             </Table>
-            <Pagination className="right">
+            <Pagination className="right ">
                 <Pagination.First onClick={() => nextPage(1)} />
                 <Pagination.Prev onClick={() => nextPage(page - 1)} />
                 {page === 1 ?
