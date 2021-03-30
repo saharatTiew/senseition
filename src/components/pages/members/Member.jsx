@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "./Table"
 import Table2 from "./Table2"
 import { Paper, Divider, Grid, Button, InputLabel, Select, TextField, FormControl, Box } from '@material-ui/core';
@@ -10,7 +10,8 @@ import {
   HashRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useLocation
 } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -26,6 +27,7 @@ const dropdownStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(3),
   },
 }));
+
 
 // const useStyles = makeStyles((theme) => ({
 //   // root: {
@@ -55,10 +57,39 @@ const dropdownStyles = makeStyles((theme) => ({
 //   },
 // }));
 
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split('&');
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split('=');
+    if (decodeURIComponent(pair[0]) == variable) {
+      return decodeURIComponent(pair[1]);
+    }
+  }
+}
+
 
 export default function Member(props) {
   const classes = SideNavStyles();
   const dropdownClasses = dropdownStyles();
+  const [tempFacultyFilter, setTempFacultyFilter] = useState();
+  const location = useLocation()
+  console.log('member fddddddddddddddddddddd', location);
+  // ?facultyId=
+
+  // useEffect(() => {
+  //   if (location.search) {
+  //     let parsedQuery = getQueryVariable('facultyId');
+  //     console.log(parsedQuery);
+  //     console.log(parseInt(parsedQuery));
+  //     let tempFaculty = props.facultyLists.filter(x => x.id === parseInt(parsedQuery));
+  //     if (tempFaculty[0]) {
+  //       alert(JSON.stringify(tempFaculty));
+  //       props.setFaculty(tempFaculty[0])
+  //     }
+  //   }
+  // }, [])
+
 
   return (
     <main
@@ -67,29 +98,29 @@ export default function Member(props) {
       })}
     >
       <div className={classes.drawerHeader} />
-      <Paper className="mt-3" style={{ borderRadius : 15}}>
+      <Paper className="mt-3" style={{ borderRadius: 15 }}>
         <Grid container spacing={3}>
           <Grid item xs={8} sm={10}>
-          {/* {props.faculty.name} */}
+            {/* {props.faculty.name} */}
             <h4 className="ml-3 mt-3 mb-3"></h4>
           </Grid>
           <Grid item xs={2} sm={1}>
             <div>
-                <FormControl size="small" variant="outlined" className={dropdownClasses.formControl} margin="normal">
-                  <InputLabel autoWidth="true" style={{fontSize:13, textAlign:"center"}}>Select Major</InputLabel>
-                  <Select style={{height : 37, marginLeft:10, marginRight: 20, }}
-                    native
-                    // labelWidth="10"
-                    // value={state.age}
-                    // onChange={handleChange}
-                    label="Select Major"
-                    inputProps={{
-                      name: 'age',
-                      id: 'outlined-age-native-simple',
-                    }}
-                  >
-                  </Select>
-                </FormControl>
+              <FormControl size="small" variant="outlined" className={dropdownClasses.formControl} margin="normal">
+                <InputLabel autoWidth="true" style={{ fontSize: 13, textAlign: "center" }}>Select Major</InputLabel>
+                <Select style={{ height: 37, marginLeft: 10, marginRight: 20, }}
+                  native
+                  // labelWidth="10"
+                  // value={state.age}
+                  // onChange={handleChange}
+                  label="Select Major"
+                  inputProps={{
+                    name: 'age',
+                    id: 'outlined-age-native-simple',
+                  }}
+                >
+                </Select>
+              </FormControl>
             </div>
           </Grid>
           <Grid item xs={2} sm={1}>

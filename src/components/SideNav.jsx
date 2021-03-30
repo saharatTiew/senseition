@@ -25,8 +25,9 @@ function NavItem(props) {
   return (
     <div>
       <NavLink to={{
-        pathname: path
-      }}
+        pathname: path,
+        search: `?facultyId=${props.id}`
+      }} 
         activeClassName="active" className="nav-link text-dark">
         <p className="h5">{props.faculty}</p>
       </NavLink>
@@ -35,7 +36,7 @@ function NavItem(props) {
 }
 
 function ChangeFaculty(props) {
-  console.log(props.open);
+  
 }
 
 export default function SideNav(props) {
@@ -118,7 +119,7 @@ export default function SideNav(props) {
         <List>
           {props.facultyLists &&
             props.facultyLists.map((navItem) => (
-              <NavItem faculty={navItem.name} id={navItem.id} key={navItem.id} />
+              <NavItem faculty={navItem.name} id={navItem.id} key={navItem.id}/>
             ))}
         </List>
       </Drawer>

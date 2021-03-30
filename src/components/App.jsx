@@ -9,7 +9,8 @@ import {
   HashRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useLocation
 } from "react-router-dom";
 
 import Biography from './pages/reviews/Biography'
@@ -31,14 +32,14 @@ export default function App() {
   const theme = useTheme();
   console.log(JSON.stringify(faculty));
 
-  useEffect( () => {
-    if (facultyFilter !== 0) {
-      let tempFaculty = facultyLists.filter(x => x.id == facultyFilter);
-      if (tempFaculty) {
-        setFaculty(tempFaculty[0])
-      }
-    }
-  }, [facultyFilter])
+  // useEffect( () => {
+  //   if (facultyFilter !== 0) {
+  //     let tempFaculty = facultyLists.filter(x => x.id == facultyFilter);
+  //     if (tempFaculty) {
+  //       setFaculty(tempFaculty[0])
+  //     }
+  //   }
+  // }, [facultyFilter])
 
   return (
     <Router basename="senseition">
@@ -52,7 +53,9 @@ export default function App() {
         <Switch>
           <Route path="/registers" component={Register} />
           <Route path="/member">
-            <Member open={open} faculty={faculty} setFaculty={setFaculty} facultyPath={facultyPath} defaultFaculty={defaultFaculty} />
+            <Member open={open} faculty={faculty} setFaculty={setFaculty} facultyPath={facultyPath} defaultFaculty={defaultFaculty} 
+                                facultyLists={facultyLists} setFacultyLists={setFacultyLists}
+            />
           </Route>
           <Route path="/mainreview">
             <MainReview open={open} faculty={faculty} setFaculty={setFaculty} />
