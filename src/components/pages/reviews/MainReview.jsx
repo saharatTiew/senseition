@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Paper, Divider, Grid, Button, InputLabel, Select, TextField, FormControl, Box } from '@material-ui/core';
+import { Paper, Divider, Grid, Button, InputLabel, Select, TextField, FormControl, Box, Tabs, Tab } from '@material-ui/core';
 import SideNavStyles from '../../../materialUIStyles/SideNavStyles'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Biography from "./Biography"
+import Course from './Course';
 
 import {
     HashRouter as Router,
@@ -11,6 +12,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
 
 const drawerWidth = 240;
 
@@ -29,6 +31,11 @@ const dropdownStyles = makeStyles((theme) => ({
 export default function Member(props) {
     const classes = SideNavStyles();
     const dropdownClasses = dropdownStyles();
+    const [mainPage, setMainPage] = React.useState("1");
+
+    const handleChange = (event, value) => {
+        setMainPage(value);
+    }
 
     return (
         <main
@@ -37,15 +44,33 @@ export default function Member(props) {
             })}
         >
             <div className={classes.drawerHeader} />
-            <Paper sqaure="true" style={{ borderRadius : 50}}>
-                {/* <Grid container spacing={3}>
-          <Grid item xs={8} sm={10}>
-            <h3>{props.faculty.name}</h3>
-          </Grid>
-        </Grid> */}
-                <h3>{props.faculty.name}</h3>
+            <Paper sqaure="true" style={{ borderRadius: 50 }}>
+                <h3>{props.faculty.name} {mainPage}</h3>
                 <Divider />
-                <Biography />
+                <Paper square>
+                    <Tabs
+                        value={mainPage}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        onChange={handleChange}
+                        aria-label="main page"
+                    >
+                        <Tab label="Biography" value="1" />
+                        <Tab label="Review" value="2" />
+                        <Tab label="Survey" value="3" />
+                    </Tabs>
+                </Paper>
+                <Divider />
+                <Container fluid>
+                    <Row>
+                        <Col sm={6}>
+                            <Biography />
+                        </Col>
+                        <Col sm={6}>
+                            <Course />
+                        </Col>
+                    </Row>
+                </Container>
             </Paper>
         </main>
     );
