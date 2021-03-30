@@ -38,9 +38,11 @@ function CourseBody(props) {
 function Course() {
     return (
         // <Box height="1000%">
-        <Paper>
-            <div style={{ marginLeft: 40, marginRight: 40 }}>
+        <Paper style={{ borderRadius: 10, marginRight: 20 }}>
+            <div style={{ marginTop:30, marginLeft: 40, marginRight: 40, marginBottom: 30, paddingTop: 30, paddingBottom: 30 }}>
                 {/* <Container> */}
+                <h4>Course list:</h4>
+                <Divider className="mt-2 mb-2" />
                     <Row>
                         <Table striped borderless hover responsive>
                             <thead>

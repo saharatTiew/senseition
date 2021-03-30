@@ -44,10 +44,9 @@ export default function Member(props) {
             })}
         >
             <div className={classes.drawerHeader} />
-            <Paper sqaure="true" style={{ borderRadius: 50 }}>
-                <h3>{props.faculty.name} {mainPage}</h3>
-                <Divider />
-                <Paper square>
+            <Paper sqaure="true" style={{ borderRadius: 10, marginTop: 10, paddingTop: 30}}>
+                <h3 className="pl-4 pt-1 pb-2">{props.faculty.name} {mainPage}</h3>
+                <Paper square >
                     <Tabs
                         value={mainPage}
                         indicatorColor="primary"
@@ -63,10 +62,10 @@ export default function Member(props) {
                 <Divider />
                 <Container fluid>
                     <Row>
-                        <Col sm={6}>
+                        <Col sm={7}>
                             <Biography />
                         </Col>
-                        <Col sm={6}>
+                        <Col sm={5}>
                             <Course />
                         </Col>
                     </Row>
