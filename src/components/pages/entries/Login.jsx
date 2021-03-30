@@ -20,9 +20,9 @@ function Login() {
   return (
     <div className="container">
       <Background />
-      <div className="box">
-        <div className="card">
-          <Card className={classes.root}>
+      <div className="box" style={{ borderRadius : 15}}>
+        <div className="card" style={{ borderRadius : 15}}>
+          <Card className={classes.root} style={{ borderRadius : 15}}>
             <CardContent>
               <h3 className="east-bay-font">SENSEITION</h3>
               <form className="form">
