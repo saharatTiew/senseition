@@ -118,6 +118,20 @@ form button {
   /* height: 400px; */
 }
 
+.wrapper{
+  width:1200px;
+  overflow-y:scroll;
+  position:relative;
+  align-content: center;
+  height: 450px;
+}
+
+.center-1 {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
 .center {
   text-align: center;
   padding: 100px 10px;
@@ -129,6 +143,10 @@ form button {
   float: right;
   width: 220px;
   padding: 15px;
+}
+
+.mr-large {
+  margin-right: 620px;
 }
 
 body {
