@@ -5,7 +5,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Biography from "./Biography"
 import Course from './Course';
-
 import {
     HashRouter as Router,
     Switch,
@@ -14,6 +13,7 @@ import {
 } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Survey from './Survey'
+import Review from './Review'
 
 const drawerWidth = 240;
 
@@ -72,7 +72,7 @@ export default function Member(props) {
                                 <Course/>
                             </Col>
                             </Fragment>
-                        : <Survey />}
+                        : mainPage === '2' ? <Review /> : <Survey />}
                     </Row>
                 </Container>
             </Paper>
