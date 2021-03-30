@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { Paper, Divider, Grid, Button, InputLabel, Select, TextField, FormControl, Box, Tabs, Tab } from '@material-ui/core';
 import SideNavStyles from '../../../materialUIStyles/SideNavStyles'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -13,6 +13,7 @@ import {
     Link
 } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
+import Survey from './Survey'
 
 const drawerWidth = 240;
 
@@ -62,12 +63,16 @@ export default function Member(props) {
                 <Divider />
                 <Container fluid>
                     <Row>
-                        <Col sm={7}>
-                            <Biography />
-                        </Col>
-                        <Col sm={5}>
-                            <Course />
-                        </Col>
+                        {mainPage === '1' ?
+                            <Fragment>
+                            <Col sm={7}>
+                                <Biography/>
+                            </Col>
+                            <Col sm={5}>
+                                <Course/>
+                            </Col>
+                            </Fragment>
+                        : <Survey />}
                     </Row>
                 </Container>
             </Paper>
