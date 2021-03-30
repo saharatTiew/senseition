@@ -2,6 +2,7 @@ import React, { useState, Fragment } from "react";
 import { Pagination } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 import RadioButtonUncheckedOutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
+import InfoIcon from '@material-ui/icons/Info';
 import { IconButton } from '@material-ui/core';
 import {
     HashRouter as Router,
@@ -78,7 +79,7 @@ function MemberBody(props) {
             <td>{props.rate}</td>
             <td>
                 <Link to="/mainreview">
-                    <RadioButtonUncheckedOutlinedIcon style={{color: "#000000"}}/>
+                    <InfoIcon style={{color: "#485d84"}}/>
                 </Link>
             </td>
         </tr>
@@ -98,22 +99,22 @@ export default function FacultyMemberTable(props) {
 
     return (
         <div>
-            <Table striped borderless hover responsive>
-                <thead>
-                    <tr>
+            <Table borderless>
+                <thead className="east-bay-button" style={{color: "white"}}>
+                    <tr >
                         <th style={{ "width": 20 + '%' }}>First name</th>
                         <th style={{ "width": 20 + '%' }}>Last name</th>
                         <th style={{ "width": 25 + '%' }}>Major</th>
-                        <th style={{ "width": 25 + '%' }}>Position</th>
+                        <th style={{ "width": 20 + '%' }}>Position</th>
                         <th style={{ "width": 6 + '%' }}>Rate</th>
-                        <th style={{ "width": 4 + '%' }}>Action</th>
+                        <th style={{ "width": 6 + '%' }}>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.map(i => <MemberBody {...i} key={i.id} />)}
                 </tbody>
             </Table>
-            <Pagination>
+            <Pagination className="right ">
                 <Pagination.First onClick={() => nextPage(1)} />
                 <Pagination.Prev onClick={() => nextPage(page - 1)} />
                 {page === 1 ?
