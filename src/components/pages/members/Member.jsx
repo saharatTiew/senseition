@@ -70,7 +70,8 @@ export default function Member(props) {
       <Paper className="mt-3" style={{ borderRadius : 15}}>
         <Grid container spacing={3}>
           <Grid item xs={8} sm={10}>
-            <h4 className="ml-3 mt-3 mb-3">{props.faculty.name}</h4>
+          {/* {props.faculty.name} */}
+            <h4 className="ml-3 mt-3 mb-3"></h4>
           </Grid>
           <Grid item xs={2} sm={1}>
             <div>
@@ -98,7 +99,7 @@ export default function Member(props) {
           </Grid>
         </Grid>
         <Divider className="mb-3" />
-        <Table2 />
+        <Table2 {...props} />
       </Paper>
     </main>
   );

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,21 +15,17 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { NavLink } from "react-router-dom";
 import useStyles from '../materialUIStyles/SideNavStyles';
 import Table2 from './pages/members/Table2'
+import fetchOptions, { fetchPostOptions } from './fetchOptions';
 
 const path = "/member"
-const navList = [
-  { faculty: "MSME", facultyId: 1 },
-  { faculty: "VMS", facultyId: 2 },
-  { faculty: "CA", facultyId: 3 },
-  { faculty: "VME", facultyId: 4 },
-]
+
+// onclick={() => ChangeFaculty(...props)}
 
 function NavItem(props) {
   return (
     <div>
       <NavLink to={{
-        pathname: path,
-        state: { id: props.id, facultyName: props.faculty }
+        pathname: path
       }}
         activeClassName="active" className="nav-link text-dark">
         <p className="h5">{props.faculty}</p>
@@ -38,9 +34,14 @@ function NavItem(props) {
   );
 }
 
+function ChangeFaculty(props) {
+  console.log(props.open);
+}
+
 export default function SideNav(props) {
   const classes = useStyles();
   const theme = useTheme();
+  // const [facultyLists, setFacultyLists] = useState();
   // const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -50,6 +51,26 @@ export default function SideNav(props) {
   const handleDrawerClose = () => {
     props.setOpen(false);
   };
+
+  useEffect(() => {
+    if (!props.faculty) {
+      fetch(`${process.env.REACT_APP_API_URL}/${props.facultyPath}/faculties`, fetchOptions)
+        .then(res => {
+          if (!res.ok) { throw res }
+          return res.json();
+        })
+        .then((result) => {
+          props.setFacultyLists(result);
+          alert(JSON.stringify(result));
+          if (!props.defaultFaculty) {
+            props.setFaculty(result.filter(x => x.id === 1)[0]);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }, [])
 
   return (
     // <div className={classes.root}>
@@ -61,7 +82,7 @@ export default function SideNav(props) {
           [classes.appBarShift]: props.open,
         })}
       >
-        <Toolbar style={{backgroundColor: "#485d84"}}>
+        <Toolbar style={{ backgroundColor: "#485d84" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -90,14 +111,15 @@ export default function SideNav(props) {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
-        <Typography className="ml-3"  style={{color: "grey"}} variant="h5" noWrap>
+        <Typography className="ml-3" style={{ color: "grey" }} variant="h5" noWrap>
           Faculty
         </Typography>
         <Divider />
         <List>
-          {navList.map((navItem) => (
-            <NavItem faculty={navItem.faculty} id={navItem.facultyId} key={navItem.facultyId} />
-          ))}
+          {props.facultyLists &&
+            props.facultyLists.map((navItem) => (
+              <NavItem faculty={navItem.name} id={navItem.id} key={navItem.id} />
+            ))}
         </List>
       </Drawer>
 
@@ -109,7 +131,7 @@ export default function SideNav(props) {
         <div className={classes.drawerHeader} />
         <Table2 />
       </main> */}
-    {/* </div> */}
+      {/* </div> */}
     </Fragment>
   );
 }

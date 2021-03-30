@@ -1,15 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-
-
-
 function LoginInput(props) {
   return (
     <input
       type={props.type}
       placeholder={props.placeholder}
       className="border border-dark text-secondary login-btn login-input"
+      ref={props.register({ required: true })}
+      name={props.name}
     />
   );
 }

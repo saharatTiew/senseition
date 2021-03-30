@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 import RadioButtonUncheckedOutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
@@ -10,92 +10,109 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import fetchOptions, { fetchPostOptions } from '../../fetchOptions';
 
-const data = [
-    {
-        id: 1,
-        lastName: "SIKHARESTRAKUL",
-        major: "HOSPITALITY AND HOSPITALITY",
-        firstName: "PHANUWAT",
-        position: "ASST. DEAN FOR",
-        rate: "2.75/5"
-    },
-    {
-        id: 2,
-        lastName: "SIKHARESTRAKUL",
-        major: "HOSPITALITY AND HOSPITALITY",
-        firstName: "PHANUWAT",
-        position: "ASST. DEAN FOR",
-        rate: "2.75/5"
-    },
-    {
-        id: 3,
-        lastName: "SIKHARESTRAKUL",
-        major: "HOSPITALITY AND HOSPITALITY",
-        firstName: "PHANUWAT",
-        position: "ASST. DEAN FOR",
-        rate: "2.75/5"
-    },
-    {
-        id: 4,
-        lastName: "SIKHARESTRAKUL",
-        major: "HOSPITALITY AND HOSPITALITY",
-        firstName: "PHANUWAT",
-        position: "ASST. DEAN FOR",
-        rate: "2.75/5"
-    },
-    {
-        id: 5,
-        lastName: "SIKHARESTRAKUL",
-        major: "HOSPITALITY AND HOSPITALITY",
-        firstName: "PHANUWAT",
-        position: "ASST. DEAN FOR",
-        rate: "2.75/5"
-    },
-    {
-        id: 6,
-        lastName: "SIKHARESTRAKUL",
-        major: "HOSPITALITY AND HOSPITALITY",
-        firstName: "PHANUWAT",
-        position: "ASST. DEAN FOR",
-        rate: "2.75/5"
-    }
-]
-
+// const data = [
+//     {
+//         id: 1,
+//         lastName: "SIKHARESTRAKUL",
+//         major: "HOSPITALITY AND HOSPITALITY",
+//         firstName: "PHANUWAT",
+//         position: "ASST. DEAN FOR",
+//         rate: "2.75/5"
+//     },
+//     {
+//         id: 2,
+//         lastName: "SIKHARESTRAKUL",
+//         major: "HOSPITALITY AND HOSPITALITY",
+//         firstName: "PHANUWAT",
+//         position: "ASST. DEAN FOR",
+//         rate: "2.75/5"
+//     },
+//     {
+//         id: 3,
+//         lastName: "SIKHARESTRAKUL",
+//         major: "HOSPITALITY AND HOSPITALITY",
+//         firstName: "PHANUWAT",
+//         position: "ASST. DEAN FOR",
+//         rate: "2.75/5"
+//     },
+//     {
+//         id: 4,
+//         lastName: "SIKHARESTRAKUL",
+//         major: "HOSPITALITY AND HOSPITALITY",
+//         firstName: "PHANUWAT",
+//         position: "ASST. DEAN FOR",
+//         rate: "2.75/5"
+//     },
+//     {
+//         id: 5,
+//         lastName: "SIKHARESTRAKUL",
+//         major: "HOSPITALITY AND HOSPITALITY",
+//         firstName: "PHANUWAT",
+//         position: "ASST. DEAN FOR",
+//         rate: "2.75/5"
+//     },
+//     {
+//         id: 6,
+//         lastName: "SIKHARESTRAKUL",
+//         major: "HOSPITALITY AND HOSPITALITY",
+//         firstName: "PHANUWAT",
+//         position: "ASST. DEAN FOR",
+//         rate: "2.75/5"
+//     }
+// ]
 
 function MemberBody(props) {
-
-    function test(page) {
-        { console.log(page) }
-    }
-
-    { console.log(props) }
+    console.log('dffddf', JSON.stringify(props));
     return (
         <tr>
             <td>{props.firstName}</td>
             <td>{props.lastName}</td>
             <td>{props.major}</td>
             <td>{props.position}</td>
-            <td>{props.rate}</td>
+            <td>{props.rate}/{props.maxRate}</td>
             <td>
                 <Link to="/mainreview">
                     <InfoIcon style={{color: "#485d84"}}/>
                 </Link>
             </td>
         </tr>
-    )
+    );
 }
 
 
 export default function FacultyMemberTable(props) {
     const [page, setPage] = useState(1);
     const [major, setMajor] = useState(0);
-    const totalPage = 20;
+    const [members, setMembers] = useState();
+    // const [data, setData] = useState(0);
+    const [totalPage, setTotalPage] = useState(20);
 
     function nextPage(page) {
         { console.log(page) }
         page > 0 && page <= totalPage && setPage(page);
     }
+
+    // ?facultyId=${props.faculty.id}
+    useEffect(() => {
+        if (props.faculty) {
+          fetch(`${process.env.REACT_APP_API_URL}/${props.facultyPath}/faculties-member?facultyId=${props.faculty.id}`, fetchOptions)
+            .then(res => {
+              if (!res.ok) { throw res }
+              return res.json();
+            })
+            .then((result) => {
+              console.log("hey heey hey");
+              setMembers(result);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        } else {
+            console.log('ssssssssssss');
+        }
+    }, [props.faculty])
 
     return (
         <div>
@@ -111,7 +128,7 @@ export default function FacultyMemberTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map(i => <MemberBody {...i} key={i.id} />)}
+                    {members && members.members.map(i => <MemberBody {...i} key={i.id} />)}
                 </tbody>
             </Table>
             <Pagination className="right ">
