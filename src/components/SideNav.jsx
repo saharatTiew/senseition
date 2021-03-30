@@ -31,7 +31,7 @@ function NavItem(props) {
         pathname: path,
         state: { id: props.id, facultyName: props.faculty }
       }}
-        activeClassName="active" className="nav-link text-danger">
+        activeClassName="active" className="nav-link text-dark">
         <p className="h5">{props.faculty}</p>
       </NavLink>
     </div>
@@ -61,7 +61,7 @@ export default function SideNav(props) {
           [classes.appBarShift]: props.open,
         })}
       >
-        <Toolbar>
+        <Toolbar style={{backgroundColor: "#485d84"}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -74,7 +74,7 @@ export default function SideNav(props) {
           {/* <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography> */}
-        </Toolbar>
+        </Toolbar >
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -90,7 +90,7 @@ export default function SideNav(props) {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
-        <Typography variant="h6" noWrap>
+        <Typography className="ml-3"  style={{color: "grey"}} variant="h5" noWrap>
           Faculty
         </Typography>
         <Divider />

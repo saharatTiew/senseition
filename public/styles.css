@@ -110,6 +110,12 @@ form button {
   /* height: 400px; */
 }
 
+.right {
+  float: right;
+  width: 220px;
+  padding: 15px;
+}
+
 /* .test {
   display: inline-flex;
   float: left;

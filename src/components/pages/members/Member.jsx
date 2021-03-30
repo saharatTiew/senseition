@@ -17,12 +17,13 @@ const drawerWidth = 240;
 
 const dropdownStyles = makeStyles((theme) => ({
   formControl: {
-    // margin: theme.spacing(1),
+    marginRight: theme.spacing(5),
     minWidth: 140,
     // height: 10
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -66,14 +67,14 @@ export default function Member(props) {
       })}
     >
       <div className={classes.drawerHeader} />
-      <Paper>
+      <Paper className="mt-3">
         <Grid container spacing={3}>
           <Grid item xs={8} sm={10}>
-            <h3>{props.faculty.name}</h3>
+            <h4 className="ml-3 mt-3 mb-3">{props.faculty.name}</h4>
           </Grid>
           <Grid item xs={2} sm={1}>
             <div>
-                <FormControl size="small" variant="outlined" className={dropdownClasses.formControl}>
+                <FormControl size="small" variant="outlined" className={dropdownClasses.formControl} margin="normal">
                   <InputLabel autoWidth="true" style={{fontSize:13, textAlign:"center"}}>Select Major</InputLabel>
                   <Select style={{height : 37, marginLeft:10, marginRight: 20, }}
                     native
@@ -91,7 +92,7 @@ export default function Member(props) {
             </div>
           </Grid>
           <Grid item xs={2} sm={1}>
-            <Button variant="contained" color="primary">
+            <Button className="east-bay-button mt-3 mb-3" variant="contained" color="primary">
               Filter
           </Button>
           </Grid>
