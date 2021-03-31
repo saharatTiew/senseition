@@ -119,9 +119,9 @@ form button {
 }
 
 .wrapper{
-  width:1200px;
-  overflow-y:scroll;
-  position:relative;
+  width: 70%;
+  overflow-y: scroll;
+  position: relative;
   align-content: center;
   height: 450px;
 }
