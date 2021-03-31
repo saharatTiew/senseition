@@ -26,7 +26,7 @@ function TeacherPaper(props) {
                             // src="https://cdn1.iconfinder.com/data/icons/freeline/32/account_friend_human_man_member_person_profile_user_users-512.png"
                             src={props.pictureUrl}
                             // className="bg"
-                            width="50px" height="150px"
+                            width="50px" height="50%"
                             alt="human"
                             style={{ paddingBottom: '0vw' }}
                         />

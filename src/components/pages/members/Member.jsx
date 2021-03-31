@@ -19,7 +19,8 @@ const drawerWidth = 240;
 const dropdownStyles = makeStyles((theme) => ({
   formControl: {
     marginRight: theme.spacing(5),
-    minWidth: 140,
+    minWidth: 300,
+    maxWidth: 300
     // height: 10
   },
   selectEmpty: {
@@ -114,8 +115,8 @@ export default function Member(props) {
           <Grid item xs={2} sm={1}>
             <div>
               <FormControl size="small" variant="outlined" className={dropdownClasses.formControl} margin="normal">
-                <InputLabel autoWidth="true" style={{ fontSize: 13, textAlign: "center" }}>Select Major</InputLabel>
-                <Select style={{ height: 37, marginLeft: 10, marginRight: 20, }}
+                <InputLabel autoWidth="false" style={{ fontSize: 13, textAlign: "center" }}>Select Major</InputLabel>
+                <Select style={{ height: 37, marginBottom: 15, marginLeft: 5, width: 60+ "%" }}
                   // native
                   // labelWidth="10"
                   // value={state.age}
