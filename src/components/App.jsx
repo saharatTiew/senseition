@@ -52,7 +52,10 @@ export default function App() {
         />}
         
         <Switch>
-          <Route path="/registers" component={Register} />
+          {/*<Route path="/registers" component={Register} />*/}
+          <Route path="/registers">
+            <Register entryPath={entryPath} user={user} setUser={setUser} setIsEntryPage={setIsEntryPage}/>
+          </Route>
           <Route path="/member">
             <Member open={open} faculty={faculty} setFaculty={setFaculty} facultyPath={facultyPath} defaultFaculty={defaultFaculty} 
                                 facultyLists={facultyLists} setFacultyLists={setFacultyLists} teacherId={teacherId} setTeacherId={setTeacherId}

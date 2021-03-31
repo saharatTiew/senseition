@@ -24,7 +24,7 @@ function Login(props) {
   const [isRedirect, setIsRedirect] = useState(-1);
   const history = useHistory();
 
-  console.log(errors);
+  console.log('eeror', errors);
 
   const onSubmit = async (data) => {
     const loginInput = { username: data.username, password: data.password };
