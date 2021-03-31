@@ -3,12 +3,14 @@ import { Pagination } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 import RadioButtonUncheckedOutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import InfoIcon from '@material-ui/icons/Info';
+import Link from '@material-ui/core/Link';
 import { IconButton } from '@material-ui/core';
 import {
     HashRouter as Router,
     Switch,
     Route,
-    Link
+    useHistory
+    // Link
 } from "react-router-dom";
 import fetchOptions, { fetchPostOptions } from '../../fetchOptions';
 
@@ -64,7 +66,6 @@ import fetchOptions, { fetchPostOptions } from '../../fetchOptions';
 // ]
 
 function MemberBody(props) {
-    console.log('dffddf', JSON.stringify(props));
     return (
         <tr>
             <td>{props.firstName}</td>
@@ -73,12 +74,15 @@ function MemberBody(props) {
             <td>{props.position}</td>
             <td>{props.rate}/{props.maxRate}</td>
             <td>
-                <Link to="/mainreview">
-                    <InfoIcon style={{color: "#485d84"}}/>
-                </Link>
+                <InfoIcon style={{color: "#485d84"}} onClick={() => { ChangeTeacherState(props.id, props.setTeacherId, props.history)}}/>
             </td>
         </tr>
     );
+}
+
+function ChangeTeacherState(teacherId, setTeacherId, history) {
+    setTeacherId(teacherId);
+    history.push('/mainreview');
 }
 
 
@@ -86,6 +90,7 @@ export default function FacultyMemberTable(props) {
     const [page, setPage] = useState(1);
     const [major, setMajor] = useState(0);
     const [members, setMembers] = useState();
+    const history = useHistory();
     // const [data, setData] = useState(0);
     const [totalPage, setTotalPage] = useState(20);
 
@@ -127,7 +132,7 @@ export default function FacultyMemberTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {members && members.members.map(i => <MemberBody {...i} key={i.id} />)}
+                    {members && members.members.map(i => <MemberBody {...i} key={i.id} history={history} setTeacherId={props.setTeacherId}/>)}
                 </tbody>
             </Table>
             <Pagination className="right ">

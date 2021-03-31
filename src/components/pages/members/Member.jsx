@@ -57,24 +57,24 @@ const dropdownStyles = makeStyles((theme) => ({
 //   },
 // }));
 
-function getQueryVariable(variable) {
-  var query = window.location.search.substring(1);
-  var vars = query.split('&');
-  for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split('=');
-    if (decodeURIComponent(pair[0]) == variable) {
-      return decodeURIComponent(pair[1]);
-    }
-  }
-}
+// function getQueryVariable(variable) {
+//   var query = window.location.search.substring(1);
+//   var vars = query.split('&');
+//   for (var i = 0; i < vars.length; i++) {
+//     var pair = vars[i].split('=');
+//     if (decodeURIComponent(pair[0]) == variable) {
+//       return decodeURIComponent(pair[1]);
+//     }
+//   }
+// }
 
 
 export default function Member(props) {
   const classes = SideNavStyles();
   const dropdownClasses = dropdownStyles();
-  const [tempFacultyFilter, setTempFacultyFilter] = useState();
-  const location = useLocation()
-  console.log('member fddddddddddddddddddddd', location);
+  // const [tempFacultyFilter, setTempFacultyFilter] = useState();
+  // const location = useLocation()
+  // console.log('member fddddddddddddddddddddd', location);
   // ?facultyId=
 
   // useEffect(() => {
@@ -101,8 +101,7 @@ export default function Member(props) {
       <Paper className="mt-3" style={{ borderRadius: 15 }}>
         <Grid container spacing={3}>
           <Grid item xs={8} sm={10}>
-            {/* {props.faculty.name} */}
-            <h4 className="ml-3 mt-3 mb-3"></h4>
+            <h4 className="ml-3 mt-3 mb-3">{props.faculty && props.faculty.name}</h4>
           </Grid>
           <Grid item xs={2} sm={1}>
             <div>

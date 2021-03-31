@@ -1,6 +1,6 @@
-import {Box, Paper, Typography} from "@material-ui/core";
-import {Row} from "react-bootstrap";
-import React from "react";
+import { Box, Paper, Typography } from "@material-ui/core";
+import { Row } from "react-bootstrap";
+import React, { useState, useEffect, Fragment } from "react";
 import Divider from "@material-ui/core/Divider";
 
 const data = [
@@ -22,9 +22,9 @@ const data = [
     }
 ]
 
-function Review(props) {
+function ReviewComponent(props) {
     return (
-        <Paper className="wrapper" style={{marginTop: 30, marginRight: 100, marginLeft: 100, marginBottom: 30, padding: 50, maxHeight: 500}}>
+        <Fragment>
             <Row>
                 <div>
                     <img
@@ -38,24 +38,44 @@ function Review(props) {
                     <h4 className="mr-large">Phanuwat Sikharestrakul</h4>
                 </div>
                 <div>
-                    <h4>Rate: 3/5</h4>
+                    <h4>Rate: {props.rate}/{props.maxRate}</h4>
                 </div>
             </Row>
             <div>
                 <Typography component="div">
                     <Box textAlign="justify" m={4}>
-                        Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum.
-                        Donec sed odio operae, eu vulputate felis rhoncus. Ambitioni dedisse scripsisse iudicaretur.
-                        Cras mattis iudicium purus sit amet fermentum.
-                        Donec sed odio operae, eu vulputate felis rhoncus. Ambitioni dedisse scripsisse iudicaretur.
-                        Cras mattis iudicium purus sit amet fermentum.
-                        Donec sed odio operae, eu vulputate felis rhoncus. Ambitioni dedisse scripsisse iudicaretur.
-                        Cras mattis iudicium purus sit amet fermentum.
-                        Donec sed odio operae, eu vulputate felis rhoncus.
+                        {props.comment}
                     </Box>
                 </Typography>
                 <Divider />
             </div>
+        </Fragment>
+    )
+}
+
+function Review(props) {
+    const [review, SetReview] = useState();
+    useEffect(() => {
+        if (props.faculty) {
+            fetch(`${process.env.REACT_APP_API_URL}/${props.reviewPath}/reviews?teacherId=${props.teacherId}`, fetchOptions)
+                .then(res => {
+                    if (!res.ok) { throw res }
+                    return res.json();
+                })
+                .then((result) => {
+                    setReview(result);
+                })
+                .catch(err => {
+                    alert("review not found")
+                });
+        } else {
+            console.log('ssssssssssss');
+        }
+    }, [props.faculty])
+
+    return (
+        <Paper className="wrapper" style={{ marginTop: 30, marginRight: 100, marginLeft: 100, marginBottom: 30, padding: 50, maxHeight: 500 }}>
+            {review && <ReviewComponent {...review} />}
         </Paper>
     )
 }
