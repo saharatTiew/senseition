@@ -101,6 +101,7 @@ form button {
 
 .comment-survey-box {
   width: 100%;
+  height: 100%;
 }
 
 .register-btn {
@@ -206,6 +207,10 @@ label.star:before {
   max-width: 100%;
   height: 230px;
   border-radius: 8px;
+}
+
+ml-big {
+  margin-left: 100px;
 }
 
 /* .test {

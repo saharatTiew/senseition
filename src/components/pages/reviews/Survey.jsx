@@ -1,24 +1,27 @@
-import { Input, Paper, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
-import { Col, Row } from "react-bootstrap";
-import React, { useState, Fragment, useEffect } from "react";
-import { fetchPostOptions } from "../../fetchOptions";
-import { useForm } from "react-hook-form";
-import { makeStyles } from '@material-ui/core/styles';
+import {Input, Paper, FormControl, InputLabel, Select, MenuItem, Grid} from "@material-ui/core";
+import {Col, Row} from "react-bootstrap";
+import React, {useState, Fragment, useEffect} from "react";
+import {fetchPostOptions} from "../../fetchOptions";
+import {useForm} from "react-hook-form";
+import {makeStyles} from '@material-ui/core/styles';
 import Rating from "react-rating";
 
 const dropdownStyles = makeStyles((theme) => ({
     formControl: {
-        // margin: theme.spacing(1),
-        minWidth: 140,
+        marginRight: theme.spacing(5),
+        marginLeft:theme.spacing(55),
+        minWidth: 300,
+        maxWidth: 300
         // height: 10
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(3),
     },
 }));
 
 function Survey(props) {
-    const { register, handleSubmit, control, watch, errors } = useForm();
+    const {register, handleSubmit, control, watch, errors} = useForm();
     const dropdownClasses = dropdownStyles();
     const [courseId, setCourseId] = useState(0);
     const [rating1, setRating1] = useState(0);
@@ -71,16 +74,16 @@ function Survey(props) {
         }
     }
 
-    useEffect( () => {
+    useEffect(() => {
         setAverageRating((rating1 + rating2 + rating3 + rating4 + rating5) / 5);
     })
 
     return (
         <Fragment>
             <Col sm={6}>
-                <Paper style={{ borderRadius: 15, marginLeft: 20, marginTop: 30, marginBottom: 30 }}>
+                <Paper style={{borderRadius: 15, marginLeft: 20, marginTop: 100, marginBottom: 30,paddingBottom: 30}}>
 
-                    <div style={{ marginTop: 30, marginBottom: 30, paddingTop: 30, paddingLeft: 30, paddingRight: 30 }}>
+                    <div style={{marginTop: 30, marginBottom: 30, paddingTop: 30, paddingLeft: 30, paddingRight: 30}}>
                         <h5>1. Is well-prepared for class (e.g. ppt. hard-outs, etc.) ?</h5>
                         <div>
                             <Rating
@@ -133,7 +136,7 @@ function Survey(props) {
                         </div>
                     </div>
                 </Paper>
-                <Paper style={{ borderRadius: 15, marginLeft: 20, marginTop: 30, marginBottom: 30 }}>
+                <Paper style={{borderRadius: 15, marginLeft: 20, marginTop: 30, marginBottom: 30}}>
                     <div style={{
                         marginTop: 30,
                         marginBottom: 30,
@@ -144,11 +147,11 @@ function Survey(props) {
                     }}>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <Input name="reviewMessage"
-                                type="text"
-                                placeholder="Comment"
-                                className="border border-dark text-secondary comment-survey-box login-input"
-                                style={{ borderRadius: 100 }}
-                                inputRef={register({ required: true })}
+                                   type="text"
+                                   placeholder="Comment"
+                                   className="border border-dark text-secondary comment-survey-box login-input"
+                                   style={{borderRadius: 100}}
+                                   inputRef={register({required: true})}
                             />
                         </form>
                     </div>
@@ -156,42 +159,44 @@ function Survey(props) {
             </Col>
 
             <Col sm={6}>
-                <Paper style={{ borderRadius: 15, marginLeft: 20, marginTop: 30, marginBottom: 30 }}>
-                    <FormControl size="small" variant="outlined" className={dropdownClasses.formControl} margin="normal">
-                        <InputLabel autoWidth="false" style={{ fontSize: 13, textAlign: "center" }}>Select Course</InputLabel>
-                        <Select style={{ height: 37, marginBottom: 15, marginLeft: 5, width: 60 + "%" }}
-                            // native
-                            // labelWidth="10"
-                            // value={state.age}
-                            onChange={filterCourse}
-                            label="Select Course"
-                        >
-                            {props.course && props.course.map((x) => (
-                                <MenuItem key={x.courseId} value={x.courseId}>
-                                    {x.courseName}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                        <FormControl size="small" variant="outlined" className={dropdownClasses.formControl}
+                                     margin="normal">
+                            <InputLabel autoWidth="false" style={{fontSize: 13, textAlign: "center"}}>Select
+                                Course</InputLabel>
+                            <Select style={{height: 37, marginBottom: 15, marginLeft: 1, width: 60 + "%"}}
+                                // native
+                                // labelWidth="10"
+                                // value={state.age}
+                                    onChange={filterCourse}
+                                    label="Select Course"
+                            >
+                                {props.course && props.course.map((x) => (
+                                    <MenuItem key={x.courseId} value={x.courseId}>
+                                        {x.courseName}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                <Paper style={{borderRadius: 15, marginLeft: 20, marginTop: 30, marginBottom: 30}}>
                     <div className="center"
-                        style={{ marginTop: 30, marginBottom: 30, paddingTop: 10, paddingLeft: 30, paddingRight: 30 }}>
-                        <h2 style={{ marginTop: 30, marginBottom: 30, paddingTop: 150 }}>AVERAGE RATING</h2>
+                         style={{marginTop: 30, marginBottom: 30, paddingTop: 10, paddingLeft: 30, paddingRight: 30}}>
+                        <h2 style={{marginTop: 30, marginBottom: 30, paddingTop: 150}}>AVERAGE RATING</h2>
                         <h1 className="biggest-font"
-                            style={{ marginTop: 30, marginBottom: 170, paddingTop: 30 }}>{averageRating}</h1>
+                            style={{marginTop: 30, marginBottom: 170, paddingTop: 30}}>{averageRating}</h1>
                     </div>
                 </Paper>
-                <Paper style={{ borderRadius: 15, marginLeft: 20, marginTop: 30, marginBottom: 30, paddingBottom: 1 }}>
-                    <div style={{ marginTop: 30, marginBottom: 30, paddingTop: 30, paddingLeft: 30, paddingRight: 30 }}>
+                <Paper style={{borderRadius: 15, marginLeft: 20, marginTop: 30, marginBottom: 30, paddingBottom: 1}}>
+                    <div style={{marginTop: 30, marginBottom: 30, paddingTop: 30, paddingLeft: 30, paddingRight: 30}}>
                         <button type="submit" onClick={handleSubmit(onSubmit)}
-                            id="submit"
-                            className="border border-dark east-bay-button text-light comment-survey-box"
-                            style={{ borderRadius: 10 }}>
+                                id="submit"
+                                className="border border-dark east-bay-button text-light comment-survey-box"
+                                style={{borderRadius: 10, paddingBottom:20, paddingTop:20, fontSize: 25}}>
                             Submit
                         </button>
                     </div>
                 </Paper>
             </Col>
-        </Fragment >
+        </Fragment>
     )
 }
 
