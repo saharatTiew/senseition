@@ -16,21 +16,18 @@ import fetchOptions, { fetchPostOptions } from '../../fetchOptions';
 function TeacherPaper(props) {
 
     return (
-        <div style={{ marginTop: 30, marginBottom: 30, paddingTop: 30, paddingLeft: 30, paddingRight: 30, paddingBottom: 30 }}>
+        <div style={{ marginTop: 30, marginBottom: 30, paddingTop: 30, paddingLeft: 30, paddingRight: 30, paddingBottom: 30}}>
             {/* <Container> */}
             <Row>
                 <Col sm={3}>
                     {/* width: '9vw', height: '9vw'} */}
-                    <div style={{ borderStyle: 'solid' }}>
                         <img
-                            // src="https://cdn1.iconfinder.com/data/icons/freeline/32/account_friend_human_man_member_person_profile_user_users-512.png"
+                            // src="https://www.nea.org/sites/default/files/legacy/2020/04/new_teacher.jpeg"
                             src={props.pictureUrl}
                             // className="bg"
-                            width="50px" height="50%"
+                            className="photo"
                             alt="human"
-                            style={{ paddingBottom: '0vw' }}
                         />
-                    </div>
                 </Col>
                 <Col sm={9}>
                     {/* <h4>PHANUWAT SIKHARESTRAKUL</h4> */}

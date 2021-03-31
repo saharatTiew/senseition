@@ -26,11 +26,11 @@ const data = [
 function ReviewComponent(props) {
     return (
         <Fragment>
-            <Row>
+            <Row className="mt-5">
                 <div>
                     <img
-                        src="https://cdn1.iconfinder.com/data/icons/freeline/32/account_friend_human_man_member_person_profile_user_users-512.png"
-                        width="32px" height="32px"
+                        src="https://www.pngkit.com/png/full/796-7963534_individuals-person-icon-circle-png.png"
+                        width="40px" height="40px"
                         alt="human"
                         className="mr-5"
                     />
@@ -44,7 +44,7 @@ function ReviewComponent(props) {
             </Row>
             <div>
                 <Typography component="div">
-                    <Box textAlign="justify" m={4}>
+                    <Box textAlign="justify" ml={8} mt={4} mb={4} fontSize={25}>
                         {props.comment}
                     </Box>
                 </Typography>

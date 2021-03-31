@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, {useState, Fragment, useEffect} from "react";
 import { Paper, Divider, Grid, Button, InputLabel, Select, TextField, FormControl, Box, Tabs, Tab } from '@material-ui/core';
 import SideNavStyles from '../../../materialUIStyles/SideNavStyles'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -41,6 +41,10 @@ export default function Member(props) {
     const handleChange = (event, value) => {
         setMainPage(value);
     }
+
+    useEffect(() => {
+        props.setIsEntryPage(false);
+    }, [])
 
     return (
         <main
