@@ -49,11 +49,14 @@ function Register(props) {
                 if (!res.ok) {
                     throw res
                     console.log("Successful")
+
                 }
             })
             .catch(err => {
                 return err.json()
             }).then(err => { console.log(err)})
+
+        history.push("/login")
     }
 
     useEffect(() => {
@@ -80,19 +83,19 @@ function Register(props) {
                                 </Row>
                                 <Row>
                                     <Col sm={5}>
-                                        <RegisterInput type="email" placeholder="E-mail address" name="email" onclick={() => {history.push('/login')}} register={register} />
+                                        <RegisterInput type="email" placeholder="E-mail address" name="email" register={register} />
                                     </Col>
                                     <Col sm={5}>
-                                        <RegisterInput type="text" placeholder="Username" name="username" onkeyup={() => { check() }} register={register} />
+                                        <RegisterInput type="text" placeholder="Username" name="username" register={register} />
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col sm={5}>
-                                        <RegisterInput type="password" id="password" placeholder="Password" name="password" onkeyup={() => { check() }} register={register} />
+                                        <RegisterInput type="password" id="password" placeholder="Password" name="password" onKeyUp={() => { check() }} register={register} />
                                     </Col>
                                     <Col sm={5}>
-                                        <RegisterInput type="password" id="confirm_password" placeholder="Confirmed password" name="password2" register={register}/>
-                                        <span id='message'></span>
+                                        <RegisterInput type="password" id="confirm_password" placeholder="Confirmed password" name="password2" onKeyUp={() => { check() }} register={register}/>
+                                        <span id='message'/>
 
                                     </Col>
                                 </Row>

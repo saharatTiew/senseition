@@ -22,6 +22,7 @@ function RegisterInput(props) {
       ref={props.register({
         required: true
       })}
+      onKeyUp={props.onkeyup}
       name={props.name}
     />
   );

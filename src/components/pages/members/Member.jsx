@@ -123,11 +123,6 @@ export default function Member(props) {
               </FormControl>
             </div>
           </Grid>
-          <Grid item xs={2} sm={1}>
-            <Button className="east-bay-button mt-3 mb-3" variant="contained" color="primary">
-              Filter
-          </Button>
-          </Grid>
         </Grid>
         <Divider className="mb-3" />
         <Table2 {...props} />

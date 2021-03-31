@@ -22,6 +22,8 @@ const data = [
     }
 ]
 
+
+
 function Review(props) {
     return (
         <Paper className="wrapper" style={{marginTop: 30, marginRight: 100, marginLeft: 100, marginBottom: 30, padding: 50, maxHeight: 500}}>
