@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import useStyles from '../materialUIStyles/SideNavStyles';
 import Table2 from './pages/members/Table2'
 import fetchOptions, { fetchPostOptions } from './fetchOptions';
@@ -24,24 +24,30 @@ const path = "/member"
 function NavItem(props) {
   return (
     <div>
-      <NavLink to={{
+      {/* <NavLink to={{
         pathname: path,
         search: `?facultyId=${props.id}`
       }} 
         activeClassName="active" className="nav-link text-dark">
         <p className="h5">{props.faculty}</p>
-      </NavLink>
+      </NavLink> */}
+      <p className="nav-link text-dark h5" style={{cursor: "pointer"}}
+         onClick={() => { ChangeFaculty(props.faculty, props.setFaculty, props.history) }}>
+        {props.faculty.name}
+      </p>
     </div>
   );
 }
 
-function ChangeFaculty(props) {
-  
+function ChangeFaculty(faculty, setFaculty, history) {
+  setFaculty(faculty);
+  history.push('/member');
 }
 
 export default function SideNav(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
   // const [facultyLists, setFacultyLists] = useState();
   // const [open, setOpen] = React.useState(false);
 
@@ -62,7 +68,6 @@ export default function SideNav(props) {
         })
         .then((result) => {
           props.setFacultyLists(result);
-          alert(JSON.stringify(result));
           if (!props.defaultFaculty) {
             props.setFaculty(result.filter(x => x.id === 1)[0]);
           }
@@ -117,9 +122,10 @@ export default function SideNav(props) {
         </Typography>
         <Divider />
         <List>
+          {/* faculty={navItem.name} id={navItem.id} */}
           {props.facultyLists &&
             props.facultyLists.map((navItem) => (
-              <NavItem faculty={navItem.name} id={navItem.id} key={navItem.id}/>
+              <NavItem faculty={navItem} key={navItem.id} setFaculty={props.setFaculty} history={history} />
             ))}
         </List>
       </Drawer>

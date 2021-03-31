@@ -27,10 +27,11 @@ export default function App() {
   const [defaultFaculty, setDefaultFaculty] = useState();
   const [faculty, setFaculty] = useState();
   const [facultyLists, setFacultyLists] = useState();
+  const [teacherId, setTeacherId] = useState();
   const [facultyFilter, setFacultyFilter] = useState(0);
   const classes = SideNavStyles();
   const theme = useTheme();
-  console.log(JSON.stringify(faculty));
+  console.log('faculty', JSON.stringify(faculty));
 
   // useEffect( () => {
   //   if (facultyFilter !== 0) {
@@ -54,11 +55,11 @@ export default function App() {
           <Route path="/registers" component={Register} />
           <Route path="/member">
             <Member open={open} faculty={faculty} setFaculty={setFaculty} facultyPath={facultyPath} defaultFaculty={defaultFaculty} 
-                                facultyLists={facultyLists} setFacultyLists={setFacultyLists}
+                                facultyLists={facultyLists} setFacultyLists={setFacultyLists} teacherId={teacherId} setTeacherId={setTeacherId}
             />
           </Route>
           <Route path="/mainreview">
-            <MainReview open={open} faculty={faculty} setFaculty={setFaculty} />
+            <MainReview open={open} faculty={faculty} setFaculty={setFaculty} teacherId={teacherId} setTeacherId={setTeacherId} />
           </Route>
           <Route path="/">
             <Login entryPath={entryPath} user={user} setUser={setUser} setIsEntryPage={setIsEntryPage} />
