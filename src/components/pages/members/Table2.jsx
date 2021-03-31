@@ -3,12 +3,14 @@ import { Pagination } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 import RadioButtonUncheckedOutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
 import InfoIcon from '@material-ui/icons/Info';
+import Link from '@material-ui/core/Link';
 import { IconButton } from '@material-ui/core';
 import {
     HashRouter as Router,
     Switch,
     Route,
-    Link
+    useHistory
+    // Link
 } from "react-router-dom";
 import fetchOptions, { fetchPostOptions } from '../../fetchOptions';
 
@@ -64,7 +66,6 @@ import fetchOptions, { fetchPostOptions } from '../../fetchOptions';
 // ]
 
 function MemberBody(props) {
-    console.log('dffddf', JSON.stringify(props));
     return (
         <tr>
             <td>{props.firstName}</td>
@@ -73,50 +74,119 @@ function MemberBody(props) {
             <td>{props.position}</td>
             <td>{props.rate}/{props.maxRate}</td>
             <td>
-                <Link to="/mainreview">
-                    <InfoIcon style={{color: "#485d84"}}/>
-                </Link>
+                <InfoIcon style={{ color: "#485d84" }} onClick={() => { ChangeTeacherState(props.id, props.setTeacherId, props.history) }} />
             </td>
         </tr>
     );
 }
 
+function ChangeTeacherState(teacherId, setTeacherId, history) {
+    setTeacherId(teacherId);
+    history.push('/mainreview');
+}
+
 
 export default function FacultyMemberTable(props) {
     const [page, setPage] = useState(1);
-    const [major, setMajor] = useState(0);
     const [members, setMembers] = useState();
-    // const [data, setData] = useState(0);
-    const [totalPage, setTotalPage] = useState(20);
+    const history = useHistory();
+    const [totalPage, setTotalPage] = useState(1);
+    const pageSize = 5;
 
     function nextPage(page) {
-        { console.log(page) }
+        { console.log('totalPage', totalPage) }
+        { console.log('page', page) }
         page > 0 && page <= totalPage && setPage(page);
     }
 
-    // ?facultyId=${props.faculty.id}
-    useEffect(() => {
+    function QueryFaculty() {
         if (props.faculty) {
-          fetch(`${process.env.REACT_APP_API_URL}/${props.facultyPath}/faculties-member?facultyId=${props.faculty.id}`, fetchOptions)
-            .then(res => {
-              if (!res.ok) { throw res }
-              return res.json();
-            })
-            .then((result) => {
-              setMembers(result);
-            })
-            .catch(err => {
-                alert("member not found")
-            });
+            fetch(`${process.env.REACT_APP_API_URL}/${props.facultyPath}/faculties-member?facultyId=${props.faculty.id}&page=${page}&pageSize=${pageSize}`,
+                fetchOptions)
+                .then(res => {
+                    if (!res.ok) { throw res }
+                    return res.json();
+                })
+                .then((result) => {
+                    { if (page == 0) { setPage(1) } };
+                    setMembers(result);
+                    setTotalPage(result.numPages);
+                })
+                .then(() => {
+                    QueryMajor()
+                })
+                .catch(err => {
+                    alert("member or major not found")
+                });
         } else {
             console.log('ssssssssssss');
         }
+    }
+
+    function QueryMajor() {
+        fetch(`${process.env.REACT_APP_API_URL}/major/majors?facultyId=${props.faculty.id}`, fetchOptions)
+            .then(res => {
+                if (!res.ok) { throw res }
+                return res.json();
+            })
+            .then((result) => {
+                { if (page == 0) { setPage(1) } };
+                props.setMajor(result)
+            })
+    }
+
+    useEffect(() => {
+        if (props.major && props.faculty && props.filterMajor != 0) {
+            fetch(`${process.env.REACT_APP_API_URL}/${props.facultyPath}/faculties-member-major?facultyId=${props.faculty.id}&majorId=${props.filterMajor}&page=${page}&pageSize=${pageSize}`,
+                fetchOptions)
+                .then(res => {
+                    if (!res.ok) { throw res }
+                    return res.json();
+                })
+                .then((result) => {
+                    { if (page == 0) { setPage(1) } };
+                    setMembers(result);
+                    setTotalPage(result.numPages);
+                })
+                .catch(err => {
+                    alert("member not found")
+                });
+        } else {
+            console.log('ssssssssssss');
+        }
+    }, [props.filterMajor])
+
+    useEffect(() => {
+        QueryFaculty();
     }, [props.faculty])
+
+    useEffect(() => {
+        QueryFaculty();
+    }, [page])
+
+    // useEffect(() => {
+    //     if (props.faculty) {
+    // fetch(`${process.env.REACT_APP_API_URL}/major/majors?facultyId=${props.faculty.id}`, fetchOptions)
+    //     .then(res => {
+    //         if (!res.ok) { throw res }
+    //         return res.json();
+    //     })
+    //     .then((result) => {
+    //         { if (page == 0) { setPage(1) } };
+    //         props.setMajor(result)
+    //     })
+    //     .catch(err => {
+    //         alert("major not found")
+    //     });
+    //     } else {
+    //         console.log('ssssssssssss');
+    //     }
+    // }, [])
 
     return (
         <div>
             <Table borderless>
-                <thead className="east-bay-button" style={{color: "white"}}>
+                <thead className="east-bay-button" style={{ color: "white" }}>
                     <tr >
                         <th style={{ "width": 20 + '%' }}>First name</th>
                         <th style={{ "width": 20 + '%' }}>Last name</th>
@@ -127,7 +197,7 @@ export default function FacultyMemberTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {members && members.members.map(i => <MemberBody {...i} key={i.id} />)}
+                    {members && members.members.map(i => <MemberBody {...i} key={i.id} history={history} setTeacherId={props.setTeacherId} />)}
                 </tbody>
             </Table>
             <Pagination className="right ">
@@ -135,20 +205,20 @@ export default function FacultyMemberTable(props) {
                 <Pagination.Prev onClick={() => nextPage(page - 1)} />
                 {page === 1 ?
                     <Fragment>
-                        <Pagination.Item active onClick={() => nextPage(page + 1)}>{page}</Pagination.Item>
-                        <Pagination.Item onClick={() => nextPage(page + 1)}>{page + 1}</Pagination.Item>
-                        <Pagination.Item onClick={() => nextPage(page + 1)}>{page + 2}</Pagination.Item>
+                        <Pagination.Item active onClick={() => nextPage(page)}>{page}</Pagination.Item>
+                        {page + 1 <= totalPage && <Pagination.Item onClick={() => nextPage(page + 1)}>{page + 1}</Pagination.Item>}
+                        {page + 2 <= totalPage && <Pagination.Item onClick={() => nextPage(page + 2)}>{page + 2}</Pagination.Item>}
                     </Fragment> :
                     (page !== totalPage ?
                         <Fragment>
-                            <Pagination.Item onClick={() => nextPage(page + 1)}>{page - 1}</Pagination.Item>
-                            <Pagination.Item active onClick={() => nextPage(page + 1)}>{page}</Pagination.Item>
-                            <Pagination.Item onClick={() => nextPage(page + 1)}>{page + 1}</Pagination.Item>
+                            {page - 1 >= 1 && <Pagination.Item onClick={() => nextPage(page - 1)}>{page - 1}</Pagination.Item>}
+                            <Pagination.Item active onClick={() => nextPage(page)}>{page}</Pagination.Item>
+                            {page + 1 <= totalPage && <Pagination.Item onClick={() => nextPage(page + 1)}>{page + 1}</Pagination.Item>}
                         </Fragment> :
                         <Fragment>
-                            <Pagination.Item onClick={() => nextPage(page + 1)}>{page - 2}</Pagination.Item>
-                            <Pagination.Item onClick={() => nextPage(page + 1)}>{page - 1}</Pagination.Item>
-                            <Pagination.Item active onClick={() => nextPage(page + 1)}>{page}</Pagination.Item>
+                            {page - 2 >= 1 && <Pagination.Item onClick={() => nextPage(page - 2)}>{page - 2}</Pagination.Item>}
+                            {page - 1 >= 1 && <Pagination.Item onClick={() => nextPage(page - 1)}>{page - 1}</Pagination.Item>}
+                            <Pagination.Item active onClick={() => nextPage(page)}>{page}</Pagination.Item>
                         </Fragment>)}
 
                 <Pagination.Next onClick={() => nextPage(page + 1)} />

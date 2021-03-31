@@ -17,6 +17,7 @@ import Review from './Review'
 
 const drawerWidth = 240;
 const teacherPath = 'teacher';
+const reviewPath = 'review';
 
 const dropdownStyles = makeStyles((theme) => ({
     formControl: {
@@ -33,7 +34,9 @@ const dropdownStyles = makeStyles((theme) => ({
 export default function Member(props) {
     const classes = SideNavStyles();
     const dropdownClasses = dropdownStyles();
-    const [mainPage, setMainPage] = React.useState("1");
+    const [mainPage, setMainPage] = useState("1");
+    const [teacher, setTeacher] = useState();
+    const [course, setCourse] = useState();
 
     const handleChange = (event, value) => {
         setMainPage(value);
@@ -46,8 +49,8 @@ export default function Member(props) {
             })}
         >
             <div className={classes.drawerHeader} />
-            <Paper sqaure="true" style={{ borderRadius: 10, marginTop: 10, paddingTop: 30}}>
-                <h3 className="pl-4 pt-1 pb-2">{props.faculty.name} {mainPage}</h3>
+            <Paper sqaure="true" style={{ borderRadius: 10, marginTop: 10, paddingTop: 30 }}>
+                <h3 className="pl-4 pt-1 pb-2">{props.faculty.name}</h3>
                 <Paper square >
                     <Tabs
                         value={mainPage}
@@ -66,14 +69,14 @@ export default function Member(props) {
                     <Row>
                         {mainPage === '1' ?
                             <Fragment>
-                            <Col sm={7}>
-                                <Biography {...props} teacherPath={teacherPath} />
-                            </Col>
-                            <Col sm={5}>
-                                <Course/>
-                            </Col>
+                                <Col sm={7}>
+                                    <Biography {...props} teacherPath={teacherPath} teacher={teacher} setTeacher={setTeacher} />
+                                </Col>
+                                <Col sm={5}>
+                                    <Course {...props} teacherPath={teacherPath} course={course} setCourse={setCourse} />
+                                </Col>
                             </Fragment>
-                        : mainPage === '2' ? <Review /> : <Survey />}
+                            : mainPage === '2' ? <Review {...props} reviewPath={reviewPath} /> : <Survey />}
                     </Row>
                 </Container>
             </Paper>
