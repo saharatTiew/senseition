@@ -103,12 +103,11 @@ export default function FacultyMemberTable(props) {
               return res.json();
             })
             .then((result) => {
-              console.log("hey heey hey");
               setMembers(result);
             })
             .catch(err => {
-              console.log(err);
-            })
+                alert("member not found")
+            });
         } else {
             console.log('ssssssssssss');
         }

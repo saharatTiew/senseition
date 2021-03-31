@@ -16,6 +16,7 @@ import Survey from './Survey'
 import Review from './Review'
 
 const drawerWidth = 240;
+const teacherPath = 'teacher';
 
 const dropdownStyles = makeStyles((theme) => ({
     formControl: {
@@ -66,7 +67,7 @@ export default function Member(props) {
                         {mainPage === '1' ?
                             <Fragment>
                             <Col sm={7}>
-                                <Biography/>
+                                <Biography {...props} teacherPath={teacherPath} />
                             </Col>
                             <Col sm={5}>
                                 <Course/>

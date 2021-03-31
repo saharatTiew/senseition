@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from 'react-bootstrap'
 import {
     Paper, Divider, Grid, Button, InputLabel, Select, TextField,
@@ -12,7 +12,26 @@ import {
     Link
 } from "react-router-dom";
 
-function Biography() {
+
+function Biography(props) {
+    // useEffect( () => {
+    //     if (props.teacher) {
+    //         fetch(`${process.env.REACT_APP_API_URL}/${props.teacherPath}/biography?teacherId=${props.teacherId}`, fetchOptions)
+    //         .then(res => {
+    //           if (!res.ok) { throw res }
+    //           return res.json();
+    //         })
+    //         .then((result) => {
+    //           setMembers(result);
+    //         })
+    //         .catch(err => {
+    //             alert("member not found")
+    //         });
+    //     } else {
+    //         console.log('ssssssssssss');
+    //     }
+    // }, [props.teacher])
+
     return (
         // <Box height="1000%">
         // style={{ width: 100 + '%', paddingBottom: 5 + '%', paddingTop: 5 + '%' }}
