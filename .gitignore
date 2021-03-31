@@ -24,3 +24,10 @@ yarn-error.log*
 
 .idea
 yarn.lock
+
+.env
+.firebaserc
+firebase.json
+yarn.lock
+.idea
+.firebase
