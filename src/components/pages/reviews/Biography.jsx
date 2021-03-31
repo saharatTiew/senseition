@@ -16,7 +16,7 @@ import fetchOptions, { fetchPostOptions } from '../../fetchOptions';
 function TeacherPaper(props) {
 
     return (
-        <div style={{ marginTop: 30, marginBottom: 30, paddingTop: 30, paddingLeft: 30, paddingRight: 30, paddingBottom: 30, backgroundColor: "red"}}>
+        <div style={{ marginTop: 30, marginBottom: 30, paddingTop: 30, paddingLeft: 30, paddingRight: 30, paddingBottom: 30}}>
             {/* <Container> */}
             <Row>
                 <Col sm={3}>
