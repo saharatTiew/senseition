@@ -2,6 +2,7 @@ import { Box, Paper, Typography } from "@material-ui/core";
 import { Row } from "react-bootstrap";
 import React, { useState, useEffect, Fragment } from "react";
 import Divider from "@material-ui/core/Divider";
+import fetchOptions, { fetchPostOptions } from '../../fetchOptions';
 
 const data = [
     {
@@ -35,7 +36,7 @@ function ReviewComponent(props) {
                     />
                 </div>
                 <div>
-                    <h4 className="mr-large">Phanuwat Sikharestrakul</h4>
+                    <h4 className="mr-large">{props.userFullName}</h4>
                 </div>
                 <div>
                     <h4>Rate: {props.rate}/{props.maxRate}</h4>
@@ -54,16 +55,16 @@ function ReviewComponent(props) {
 }
 
 function Review(props) {
-    const [review, SetReview] = useState();
+    const [reviews, setReviews] = useState();
     useEffect(() => {
         if (props.faculty) {
-            fetch(`${process.env.REACT_APP_API_URL}/${props.reviewPath}/reviews?teacherId=${props.teacherId}`, fetchOptions)
+            fetch(`${process.env.REACT_APP_API_URL}/${props.reviewPath}/reviews?teacherId=${props.teacherId}&pageSize=10`, fetchOptions)
                 .then(res => {
                     if (!res.ok) { throw res }
                     return res.json();
                 })
                 .then((result) => {
-                    setReview(result);
+                    setReviews(result);
                 })
                 .catch(err => {
                     alert("review not found")
@@ -75,7 +76,7 @@ function Review(props) {
 
     return (
         <Paper className="wrapper" style={{ marginTop: 30, marginRight: 100, marginLeft: 100, marginBottom: 30, padding: 50, maxHeight: 500 }}>
-            {review && <ReviewComponent {...review} />}
+            {reviews && reviews.topReviews.map(i => <ReviewComponent {...i} key={i.reviewId}/>)}
         </Paper>
     )
 }

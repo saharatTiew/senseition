@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table"
 import Table2 from "./Table2"
-import { Paper, Divider, Grid, Button, InputLabel, Select, TextField, FormControl, Box } from '@material-ui/core';
+import { Paper, Divider, Grid, Button, InputLabel, Select, TextField, FormControl, Box, MenuItem } from '@material-ui/core';
 import SideNavStyles from '../../../materialUIStyles/SideNavStyles'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -72,6 +72,9 @@ const dropdownStyles = makeStyles((theme) => ({
 export default function Member(props) {
   const classes = SideNavStyles();
   const dropdownClasses = dropdownStyles();
+  const [major, setMajor] = useState();
+  const [statefilterMajor, setFilterMajor] = useState();
+  console.log('major', major);
   // const [tempFacultyFilter, setTempFacultyFilter] = useState();
   // const location = useLocation()
   // console.log('member fddddddddddddddddddddd', location);
@@ -89,6 +92,11 @@ export default function Member(props) {
   //     }
   //   }
   // }, [])
+
+  const filterMajor = (event) => {
+      console.log(event.target.value);
+      setFilterMajor(event.target.value);
+  }
 
 
   return (
@@ -108,28 +116,24 @@ export default function Member(props) {
               <FormControl size="small" variant="outlined" className={dropdownClasses.formControl} margin="normal">
                 <InputLabel autoWidth="true" style={{ fontSize: 13, textAlign: "center" }}>Select Major</InputLabel>
                 <Select style={{ height: 37, marginLeft: 10, marginRight: 20, }}
-                  native
+                  // native
                   // labelWidth="10"
                   // value={state.age}
-                  // onChange={handleChange}
+                  onChange={filterMajor}
                   label="Select Major"
-                  inputProps={{
-                    name: 'age',
-                    id: 'outlined-age-native-simple',
-                  }}
                 >
+                  {major && major.map((x) => (
+                    <MenuItem key={x.majorId} value={x.majorId}>
+                      {x.majorName}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </div>
           </Grid>
-          <Grid item xs={2} sm={1}>
-            <Button className="east-bay-button mt-3 mb-3" variant="contained" color="primary">
-              Filter
-          </Button>
-          </Grid>
         </Grid>
         <Divider className="mb-3" />
-        <Table2 {...props} />
+        <Table2 {...props} major={major} setMajor={setMajor} filterMajor={statefilterMajor} setFilterMajor={setFilterMajor}/>
       </Paper>
     </main>
   );
