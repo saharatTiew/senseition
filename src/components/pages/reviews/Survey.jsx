@@ -6,13 +6,6 @@ import {useForm} from "react-hook-form";
 import {makeStyles} from '@material-ui/core/styles';
 import Rating from "react-rating";
 
-function averageRating(props) {
-    let result = (props.answerQuestion1 + props.answerQuestion2 + props.answerQuestion3 + props.answerQuestion4 + props.answerQuestion5) / 5
-    console.log(result.toString())
-
-    return <h1>{result}</h1>
-}
-
 function Survey(props) {
     const {register, handleSubmit, control, watch, errors} = useForm();
     const [rating1, setRating1] = useState(0);
@@ -136,7 +129,6 @@ function Survey(props) {
                          style={{marginTop: 30, marginBottom: 30, paddingTop: 10, paddingLeft: 30, paddingRight: 30}}>
                         <h2 style={{marginTop: 30, marginBottom: 30, paddingTop: 150}}>AVERAGE RATING</h2>
                         <h1 className="biggest-font"
-                            onChange={averageRating(props.result)}
                             style={{marginTop: 30, marginBottom: 170, paddingTop: 30}}>0.00</h1>
                     </div>
                 </Paper>
