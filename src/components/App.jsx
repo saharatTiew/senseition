@@ -58,11 +58,11 @@ export default function App() {
           </Route>
           <Route path="/member">
             <Member open={open} faculty={faculty} setFaculty={setFaculty} facultyPath={facultyPath} defaultFaculty={defaultFaculty} 
-                                facultyLists={facultyLists} setFacultyLists={setFacultyLists} teacherId={teacherId} setTeacherId={setTeacherId}
+                                facultyLists={facultyLists} setFacultyLists={setFacultyLists} teacherId={teacherId} setTeacherId={setTeacherId} setIsEntryPage={setIsEntryPage}
             />
           </Route>
           <Route path="/mainreview">
-            <MainReview open={open} faculty={faculty} setFaculty={setFaculty} teacherId={teacherId} setTeacherId={setTeacherId} />
+            <MainReview open={open} faculty={faculty} setFaculty={setFaculty} teacherId={teacherId} setTeacherId={setTeacherId} setIsEntryPage={setIsEntryPage}/>
           </Route>
           <Route path="/">
             <Login entryPath={entryPath} user={user} setUser={setUser} setIsEntryPage={setIsEntryPage} />

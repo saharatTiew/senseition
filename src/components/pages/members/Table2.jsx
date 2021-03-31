@@ -72,7 +72,7 @@ function MemberBody(props) {
             <td>{props.lastName}</td>
             <td>{props.major}</td>
             <td>{props.position}</td>
-            <td>{props.rate}/{props.maxRate}</td>
+            <td>{(props.rate).toFixed(1)}/{props.maxRate}</td>
             <td>
                 <InfoIcon style={{ color: "#485d84" }} onClick={() => { ChangeTeacherState(props.id, props.setTeacherId, props.history) }} />
             </td>
@@ -163,6 +163,10 @@ export default function FacultyMemberTable(props) {
     useEffect(() => {
         QueryFaculty();
     }, [page])
+
+    useEffect(() => {
+        props.setIsEntryPage(false);
+    }, [])
 
     // useEffect(() => {
     //     if (props.faculty) {

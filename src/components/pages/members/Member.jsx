@@ -99,6 +99,9 @@ export default function Member(props) {
       setFilterMajor(event.target.value);
   }
 
+  useEffect(() => {
+    props.setIsEntryPage(false);
+  }, [])
 
   return (
     <main
