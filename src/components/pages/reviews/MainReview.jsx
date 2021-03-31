@@ -47,7 +47,7 @@ export default function Member(props) {
         >
             <div className={classes.drawerHeader} />
             <Paper sqaure="true" style={{ borderRadius: 10, marginTop: 10, paddingTop: 30}}>
-                <h3 className="pl-4 pt-1 pb-2">{props.faculty.name} {mainPage}</h3>
+                {/*<h3 className="pl-4 pt-1 pb-2">{props.faculty.name} {mainPage}</h3>*/}
                 <Paper square >
                     <Tabs
                         value={mainPage}

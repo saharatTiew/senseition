@@ -6,6 +6,13 @@ import {useForm} from "react-hook-form";
 import {makeStyles} from '@material-ui/core/styles';
 import Rating from "react-rating";
 
+function averageRating(props) {
+    let result = (props.answerQuestion1 + props.answerQuestion2 + props.answerQuestion3 + props.answerQuestion4 + props.answerQuestion5) / 5
+    console.log(result.toString())
+
+    return <h1>{result}</h1>
+}
+
 function Survey(props) {
     const {register, handleSubmit, control, watch, errors} = useForm();
     const [rating1, setRating1] = useState(0);
@@ -13,14 +20,7 @@ function Survey(props) {
     const [rating3, setRating3] = useState(0);
     const [rating4, setRating4] = useState(0);
     const [rating5, setRating5] = useState(0);
-
-    const useStyles = makeStyles({
-        root: {
-            width: 200,
-            display: 'flex',
-            alignItems: 'center',
-        },
-    });
+    const [user, setUser] = useState(3);
 
     const onSubmit = async (data) => {
         const rateInput = {
@@ -28,7 +28,11 @@ function Survey(props) {
             answerQuestion2: data.answerQuestion2,
             answerQuestion3: data.answerQuestion3,
             answerQuestion4: data.answerQuestion4,
-            answerQuestion5: data.answerQuestion5
+            answerQuestion5: data.answerQuestion5,
+            userId : props.userId,
+            courseId : data.courseId,
+            teacherId : data.teacherId,
+            reviewMessage: data.reviewMessage
         }
         console.log("RATE:" + JSON.stringify(data));
         fetch(`${[process.env.REACT_APP_API_URL]}/${props.entryPath}/surveys`,
@@ -47,10 +51,6 @@ function Survey(props) {
         })
     }
 
-    // useEffect(() => {
-    //     props.setIsEntryPage(true);
-    // }, [])
-
     return (
         <Fragment>
             <Col sm={6}>
@@ -60,6 +60,7 @@ function Survey(props) {
                             <h5>1. Is well-prepared for class (e.g. ppt. hard-outs, etc.) ?</h5>
                             <div>
                                 <Rating
+                                    name="answerQuestion1"
                                     fractions={2}
                                     initialRating={rating1}
                                     onClick={rate => setRating1(rate)}
@@ -69,6 +70,7 @@ function Survey(props) {
                             <h5>2. Treats students fairly.</h5>
                             <div>
                                 <Rating
+                                    name="answerQuestion2"
                                     fractions={2}
                                     initialRating={rating2}
                                     onClick={rate => setRating2(rate)}
@@ -78,6 +80,7 @@ function Survey(props) {
                             <h5>3. Shows students their mistakes and how to correct them.</h5>
                             <div>
                                 <Rating
+                                    name="answerQuestion3"
                                     fractions={2}
                                     initialRating={rating3}
                                     onClick={rate => setRating3(rate)}
@@ -87,6 +90,7 @@ function Survey(props) {
                             <h5>4. Is punctual by starting and finishing the class on time ?</h5>
                             <div>
                                 <Rating
+                                    name="answerQuestion4"
                                     fractions={2}
                                     initialRating={rating4}
                                     onClick={rate => setRating4(rate)}
@@ -96,6 +100,7 @@ function Survey(props) {
                             <h5>5. Is open to students' comments and suggestions ?</h5>
                             <div>
                                 <Rating
+                                    name="answerQuestion5"
                                     fractions={2}
                                     initialRating={rating5}
                                     onClick={rate => setRating5(rate)}
@@ -115,7 +120,9 @@ function Survey(props) {
                         paddingBottom: 10
                     }}>
                         <form className="form">
-                            <Input type="text" placeholder="Comment"
+                            <Input name="reviewMessage"
+                                   type="text"
+                                   placeholder="Comment"
                                    className="border border-dark text-secondary comment-survey-box login-input"
                                    style={{borderRadius: 100}}/>
                         </form>
@@ -129,6 +136,7 @@ function Survey(props) {
                          style={{marginTop: 30, marginBottom: 30, paddingTop: 10, paddingLeft: 30, paddingRight: 30}}>
                         <h2 style={{marginTop: 30, marginBottom: 30, paddingTop: 150}}>AVERAGE RATING</h2>
                         <h1 className="biggest-font"
+                            onChange={averageRating(props.result)}
                             style={{marginTop: 30, marginBottom: 170, paddingTop: 30}}>0.00</h1>
                     </div>
                 </Paper>
@@ -136,6 +144,7 @@ function Survey(props) {
                     <div style={{marginTop: 30, marginBottom: 30, paddingTop: 30, paddingLeft: 30, paddingRight: 30}}>
                         <form className="form">
                             <button type="submit"
+                                    id="submit"
                                     className="border border-dark east-bay-button text-light comment-survey-box"
                                     style={{borderRadius: 10}}>
                                 Submit
