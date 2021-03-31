@@ -80,7 +80,7 @@ export default function Member(props) {
                                     <Course {...props} teacherPath={teacherPath} course={course} setCourse={setCourse} />
                                 </Col>
                             </Fragment>
-                            : mainPage === '2' ? <Review {...props} reviewPath={reviewPath} /> : <Survey />}
+                            : mainPage === '2' ? <Review {...props} reviewPath={reviewPath} /> : <Survey {...props} teacher={teacher} setTeacher={setTeacher} course={course} setCourse={setCourse} />}
                     </Row>
                 </Container>
             </Paper>
